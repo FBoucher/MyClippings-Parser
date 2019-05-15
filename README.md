@@ -120,5 +120,3 @@ Will become that:
 Simply do a HTTP Post passing the MyClippings.txt content in the body of you request.
 
 ![Simple request with postman](medias/Postman.png)
-
-> You will need to disable the `SLL certification verification` in Postman. To do this go in setting and disable it. ![SLL certification verification](medias/disableSSLPostman.png)
