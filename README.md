@@ -1,5 +1,7 @@
 # MyClippings-Parser
 
+[![Build Status](https://dev.azure.com/cloud5mins/MyClippings-Parser/_apis/build/status/FBoucher.MyClippings-Parser?branchName=master)](https://dev.azure.com/cloud5mins/MyClippings-Parser/_build/latest?definitionId=19&branchName=master)
+
 As simple as it could be, a .Net Core parser for the Amazon Kindle's "My Clippings.txt" file. The current version support the "Kindle Paperwhite".
 
 Transforming the flat file into an Array JSON Objects.
@@ -118,3 +120,5 @@ Will become that:
 Simply do a HTTP Post passing the MyClippings.txt content in the body of you request.
 
 ![Simple request with postman](medias/Postman.png)
+
+> You will need to disable the `SLL certification verification` in Postman. To do this go in setting and disable it. ![SLL certification verification](medias/disableSSLPostman.png)
