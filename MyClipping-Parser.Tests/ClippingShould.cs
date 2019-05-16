@@ -4,17 +4,24 @@ using Xunit;
 
 namespace MyClipping_Parser.Tests
 {
-    public class ClippingShould
+    public class ClippingShould:IClassFixture<SharedState>
     {
+        private Clipping _sut = null;
+
+        private readonly SharedState _sharedState;
+
+        public ClippingShould(SharedState sharedState)
+        {
+            _sut = new Clipping();
+            _sharedState= sharedState;
+        }
+
         [Fact, Trait("Category", "Null Output Tests")]
         public void ReturnNullBeginningForNullInput()
         {
-            // Arrange
-            var sut = new Clipping();
-
             // Act
-            sut.Page = null;
-            var beginning = sut.BeginningPage;
+            _sut.Page = null;
+            var beginning = _sut.BeginningPage;
 
             //Assert
             Assert.Null(beginning);
@@ -23,16 +30,15 @@ namespace MyClipping_Parser.Tests
         [Fact, Trait("Category", "Null Output Tests")]
         public void ReturnNullBeginningForEmptyInput()
         {
-            // Arrange
-            var sut = new Clipping();
-
             // Act
-            sut.Page = string.Empty;
-            var beginning = sut.BeginningPage;
+            _sut.Page = string.Empty;
+            var beginning = _sut.BeginningPage;
 
             //Assert
             Assert.Null(beginning);
         }
+
+        /*
 
         [Fact, Trait("Category", "Null Output Tests")]
         public void ReturnNullBeginningForWhiteSpaceInput()
@@ -93,6 +99,7 @@ namespace MyClipping_Parser.Tests
         [Theory]
         [InlineData("5",5)]
         [InlineData("12-16",12)]
+        [InlineData("47-91",47)]
         public void ReturnCorrectBeginningForGivenInput(string input,int? output)
         {
             var sut = new Clipping() { Page = input };
@@ -112,5 +119,6 @@ namespace MyClipping_Parser.Tests
             sut.Page = "1X-1Y";            
             Assert.Throws<ArgumentException>(()=>sut.BeginningPage);
         }
+        */
     }
 }
