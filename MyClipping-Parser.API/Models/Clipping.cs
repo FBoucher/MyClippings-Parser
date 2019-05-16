@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace MyClippings_Parser.Models
 {
@@ -24,7 +25,12 @@ namespace MyClippings_Parser.Models
 
         private int? GetBeginningOfRange(string range)
         {
-            if (String.IsNullOrEmpty(range)) return null;
+            if (String.IsNullOrWhiteSpace(range)) return null;
+
+            // Added to illustrate Test that expects an exception to be thrown
+            var pattern = @"^[\d]+(-[\d]+)?$";
+            if (!Regex.IsMatch(range, pattern))
+                throw new ArgumentException("Invalid value for 'range'.");
 
             var hIndex = range.IndexOf('-');
 
