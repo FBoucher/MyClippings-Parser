@@ -14,18 +14,24 @@ namespace MyClipping_Parser.Tests
 {
     public class MyClippingsControllerShould
     {
+        private DefaultHttpContext _httpContext;
+
+        public MyClippingsControllerShould()
+        {
+            _httpContext = new DefaultHttpContext();
+        }
+
         [Fact]
         public void ReturnEmptyBodyForEmptyPost()
         {
             // Arrange
-            var httpContext = new DefaultHttpContext();
-
             var controllerContext = new ControllerContext()
             {
-                HttpContext = httpContext,
+                HttpContext = _httpContext,
             };
 
-            MyClippingsController sut = new MyClippingsController { ControllerContext = controllerContext };
+            MyClippingsController sut = 
+                new MyClippingsController { ControllerContext = controllerContext };
 
             // Act
             var response = sut.Post();
@@ -37,56 +43,45 @@ namespace MyClipping_Parser.Tests
         [Fact]
         public void ReturnSixClippings()
         {
-            // Arrange
-            string sampleText = null;
-
-            using (StreamReader sr = new StreamReader(@"DataFiles/CompleteClippings.txt"))
+            using (FileStream fs = File.OpenRead(@"DataFiles/CompleteClippings.txt"))
             {
-                sampleText = sr.ReadToEnd();
-            }
+                _httpContext.Request.Body = fs;
+                var controllerContext = new ControllerContext()
+                {
+                    HttpContext = _httpContext,
+                };
 
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(sampleText));
-            var controllerContext = new ControllerContext()
-            {
-                HttpContext = httpContext,
-            };
+                MyClippingsController sut = new MyClippingsController { ControllerContext = controllerContext };
 
-            MyClippingsController sut = new MyClippingsController { ControllerContext = controllerContext };
+                // Act
+                var response = sut.Post();
 
-            // Act
-            var response = sut.Post();
-
-            // Assert
-            Assert.Equal(6,response.Value.Count());
+                // Assert
+                Assert.Equal(6, response.Value.Count());
+            }           
         }
 
         [Fact]
         public void ReturnCorrectAuthors()
         {
-            // Arrange
-            string sampleText = null;
-
-            using (StreamReader sr = new StreamReader(@"DataFiles/CompleteClippings.txt"))
+            using (FileStream fs = File.OpenRead(@"DataFiles/CompleteClippings.txt"))
             {
-                sampleText = sr.ReadToEnd();
-            }
+                _httpContext.Request.Body = fs;
+                var controllerContext = new ControllerContext()
+                {
+                    HttpContext = _httpContext,
+                };
 
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(sampleText));
-            var controllerContext = new ControllerContext()
-            {
-                HttpContext = httpContext,
-            };
+                MyClippingsController sut = new MyClippingsController { ControllerContext = controllerContext };
 
-            MyClippingsController sut = new MyClippingsController { ControllerContext = controllerContext };
+                // Act
+                var response = sut.Post();
+                var authorNames = 
+                    new List<string> { "null", "null", "null", "null", "Chris Noring", "Chris Noring" };
 
-            // Act
-            var response = sut.Post();
-            var authorNames = new List<string> { "null", "null", "null", "null", "Chris Noring", "Chris Noring" };
-
-            // Assert
-            Assert.Equal(authorNames,response.Value.Select(c=>c.Author).ToList());
+                // Assert
+                Assert.Equal(authorNames, response.Value.Select(c => c.Author).ToList());
+            }            
         }
     }
 }
