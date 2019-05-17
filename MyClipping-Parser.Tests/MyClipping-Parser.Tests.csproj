@@ -21,4 +21,8 @@
     <ProjectReference Include="..\MyClipping-Parser.API\MyClippings-Parser.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)DataFiles&quot; &quot;$(TargetDir)DataFiles\&quot; /E/Y" />
+  </Target>
+
 </Project>
