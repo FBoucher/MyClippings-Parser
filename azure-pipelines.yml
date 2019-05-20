@@ -16,4 +16,23 @@ steps:
 - script: dotnet build ./MyClipping-Parser.API/ --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: './MyClipping-Parser.Tests/'
+    arguments: '-l trx'
+    testRunTitle: 'Run XUnit tests'
+    feedsToUse: 'select'
+    versioningScheme: 'off'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    feedsToUse: 'select'
+    packagesToPack: './MyClipping-Parser.API/*.csproj'
+    versioningScheme: 'off'
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'drop'
+    targetPath: 'drop'
