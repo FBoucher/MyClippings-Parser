@@ -21,16 +21,15 @@ steps:
   inputs:
     command: 'test'
     projects: './MyClipping-Parser.Tests/'
-    arguments: '-l trx'
     testRunTitle: 'Run XUnit tests'
     feedsToUse: 'select'
     versioningScheme: 'off'
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet Publish'
+  displayName: 'dotnet publish  ./MyClipping-Parser.API/ '
   inputs:
     command: 'publish'
-    publishWebProjects: True
+    publishWebProjects: false
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
