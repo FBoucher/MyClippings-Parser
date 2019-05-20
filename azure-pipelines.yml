@@ -17,6 +17,7 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run XUnit tests'
   inputs:
     command: 'test'
     projects: './MyClipping-Parser.Tests/'
@@ -26,13 +27,12 @@ steps:
     versioningScheme: 'off'
 
 - task: DotNetCoreCLI@2
+  displayName: 'dotnet Publish'
   inputs:
-    command: 'pack'
-    feedsToUse: 'select'
-    packagesToPack: './MyClipping-Parser.API/*.csproj'
-    versioningScheme: 'off'
+    command: 'publish'
+    publishWebProjects: True
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
 
-- task: PublishPipelineArtifact@0
-  inputs:
-    artifactName: 'drop'
-    targetPath: 'drop'
+- task: PublishBuildArtifacts@1
+  displayName: 'publish artifacts'
