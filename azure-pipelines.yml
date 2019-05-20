@@ -16,7 +16,7 @@ steps:
 - script: dotnet build ./MyClipping-Parser.API/ --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet test ./MyClipping-Parser.Tests/*.csproj --logger trx --configuration $(buildConfiguration)
+- script: dotnet test ./MyClipping-Parser.Tests/ --logger trx --configuration $(buildConfiguration)
   displayName: 'Run XUnit tests'
 
 - task: PublishTestResults@2

@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo D|xcopy &quot;$(ProjectDir)DataFiles&quot; &quot;$(TargetDir)DataFiles\&quot; /Y" />
+    <Exec Command="copy &quot;$(ProjectDir)DataFiles&quot; &quot;$(TargetDir)DataFiles\&quot; /Y" />
   </Target>
 
 </Project>
