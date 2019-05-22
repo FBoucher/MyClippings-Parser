@@ -21,8 +21,14 @@
     <ProjectReference Include="..\MyClipping-Parser.API\MyClippings-Parser.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <ItemGroup>
+    <None Update="DataFiles\CompleteClippings.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!--Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy &quot;$(ProjectDir)DataFiles&quot; &quot;$(TargetDir)DataFiles&quot; /Y" />
-  </Target>
+  </Target-->
 
 </Project>
