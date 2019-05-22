@@ -27,8 +27,4 @@
     </None>
   </ItemGroup>
 
-  <!--Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(ProjectDir)DataFiles&quot; &quot;$(TargetDir)DataFiles&quot; /Y" />
-  </Target-->
-
 </Project>
