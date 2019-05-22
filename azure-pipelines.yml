@@ -25,13 +25,13 @@ steps:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
 
-# - task: DotNetCoreCLI@2
-#   displayName: 'dotnet publish ./MyClipping-Parser.API/ '
-#   inputs:
-#     command: 'publish'
-#     publishWebProjects: false
-#     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-#     zipAfterPublish: True
-# 
-# - task: PublishBuildArtifacts@1
-#   displayName: 'publish artifacts'
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish ./MyClipping-Parser.API/ '
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+
+- task: PublishBuildArtifacts@1
+  displayName: 'publish artifacts'
