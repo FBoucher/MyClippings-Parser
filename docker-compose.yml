@@ -1,0 +1,8 @@
+sut:
+  build: .
+  dockerfile: Dockerfile.test
+  links:
+    - webapi
+webapi:
+  build: .
+  dockerfile: Dockerfile

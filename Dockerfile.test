@@ -1,0 +1,19 @@
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM microsoft/dotnet:2.2-sdk AS build
+WORKDIR /src
+COPY ["MyClipping-Parser.Tests/MyClipping-Parser.Tests.csproj", "MyClipping-Parser.Tests/"]
+RUN dotnet restore "MyClipping-Parser.Tests/MyClipping-Parser.Tests.csproj"
+COPY . .
+WORKDIR "/src/MyClipping-Parser.Tests"
+RUN dotnet build "MyClipping-Parser.Tests.csproj" -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish "MyClipping-Parser.Tests.csproj" -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "MyClipping-Parser.Tests.dll"]
