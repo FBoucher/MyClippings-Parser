@@ -10,6 +10,11 @@ COPY . .
 WORKDIR "/src/MyClipping-Parser.API"
 RUN dotnet build "MyClippings-Parser.csproj" -c Release -o /app
 
+FROM build AS test
+WORKDIR /src
+COPY ["MyClipping-Parser.Tests/MyClipping-Parser.Tests.csproj", "MyClipping-Parser.Tests/"]
+RUN dotnet test "MyClipping-Parser.Tests/MyClipping-Parser.Tests.csproj"
+
 FROM build AS publish
 RUN dotnet publish "MyClippings-Parser.csproj" -c Release -o /app
 
