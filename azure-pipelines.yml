@@ -17,8 +17,7 @@ variables:
 steps:
 - script: |
     docker build --rm -t $(dockerId)/$(imageName):v1 .
-    docker login -u $(dockerId) -p $(pswd)
+    docker login -u $(dockerId) -p $(dockerPassword)
     docker push $(dockerId)/$(imageName):v1
-  env:
-    pswd: $(dockerPassword) 
+
   displayName: 'Docker test & build $(buildConfiguration)'
