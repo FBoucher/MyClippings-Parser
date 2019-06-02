@@ -10,10 +10,11 @@ COPY . .
 WORKDIR "/src/MyClipping-Parser.API"
 RUN dotnet build "MyClippings-Parser.csproj" -c Release -o /app
 
-FROM build AS test
-WORKDIR /src
+FROM build AS tester
+WORKDIR /src/MyClipping-Parser.Tests
 COPY ["MyClipping-Parser.Tests/MyClipping-Parser.Tests.csproj", "MyClipping-Parser.Tests/"]
-RUN dotnet test "MyClipping-Parser.Tests/MyClipping-Parser.Tests.csproj"
+#RUN dotnet test "MyClipping-Parser.Tests/MyClipping-Parser.Tests.csproj" --logger trx;LogFileName=logs/logFile.trx"
+ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
 FROM build AS publish
 RUN dotnet publish "MyClippings-Parser.csproj" -c Release -o /app
