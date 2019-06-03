@@ -22,7 +22,7 @@ steps:
 
 - script: |
     mkdir TestResults
-    docker run --rm -v "$(pwd)/TestResults:/src/MyClipping-Parser.Tests/TestResults" $(dockerId)/$(imageName):v1 
+    docker run --rm -v "$(pwd)"/TestResults:/src/MyClipping-Parser.Tests/TestResults $(dockerId)/$(imageName):v1 
   displayName: 'Docker Run Tests $(buildConfiguration)'
 
 - task: PublishTestResults@2
