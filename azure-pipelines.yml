@@ -17,7 +17,7 @@ variables:
 steps:
 
 - script: |
-    docker build --rm -target tester -t $(dockerId)/$(imageName):v1 .
+    docker build --rm --target tester -t $(dockerId)/$(imageName):v1 .
   displayName: 'Docker Build Tests $(buildConfiguration)'
 
 - script: |
@@ -33,7 +33,7 @@ steps:
   displayName: 'Publish Test Results'
 
 - script: |
-    docker build --rm -target final -t $(dockerId)/$(imageName):v1 .
+    docker build --rm --target final -t $(dockerId)/$(imageName):v1 .
   displayName: 'Docker Build Final $(buildConfiguration)'
 
 - script: |
