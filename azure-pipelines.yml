@@ -15,9 +15,28 @@ variables:
   imageName: myclippings-parser  
 
 steps:
+
 - script: |
-    docker build --rm -t $(dockerId)/$(imageName):v1 .
+    docker build --rm -target tester -t $(dockerId)/$(imageName):v1 .
+  displayName: 'Docker Build Tests $(buildConfiguration)'
+
+- script: |
+    mkdir TestResults
+    docker run --rm -v "$(pwd)/TestResults:/src/MyClipping-Parser.Tests/TestResults" $(dockerId)/$(imageName):v1 
+  displayName: 'Docker Run Tests $(buildConfiguration)'
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
+  displayName: 'Publish Test Results'
+
+- script: |
+    docker build --rm -target final -t $(dockerId)/$(imageName):v1 .
+  displayName: 'Docker Build Final $(buildConfiguration)'
+
+- script: |
     docker login -u $(dockerId) -p $(dockerPassword)
     docker push $(dockerId)/$(imageName):v1
-
-  displayName: 'Docker test & build $(buildConfiguration)'
+  displayName: 'Docker Push $(buildConfiguration)'
