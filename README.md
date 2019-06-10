@@ -122,3 +122,10 @@ Simply do a HTTP Post passing the MyClippings.txt content in the body of you req
 ![Simple request with postman](medias/Postman.png)
 
 > You will need to disable the `SLL certification verification` in Postman. To do this go in setting and disable it. ![SLL certification verification](medias/disableSSLPostman.png)
+
+
+## Learn more about MyClippings-Parser
+
+- Code in GitHub: [Public Docker image](https://hub.docker.com/r/fboucher/myclippings-parser)
+- Build and Test: [Public Azure DevOps](https://dev.azure.com/cloud5mins/MyClippings-Parser)
+- Videos how it was build: [Public videos](https://github.com/FBoucher/stream-projects#myclippings-parser)
